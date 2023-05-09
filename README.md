@@ -7,7 +7,7 @@ A new Flutter project.
 <img src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/49dd1c4d-b3e7-4f84-a4ad-dce15114c2d4" width="220px">
 
 <img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/6af82a6c-4913-494e-85f4-c62b101d9500" width="220px">
-<img align="left" src="" width="220px">
+<img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/4b8d0c3b-6fc4-4907-8be5-e24a97d4566d" width="220px">
 <img src="" width="220px">
 
 ## Getting Started
