@@ -10,20 +10,16 @@ class web_viewpage extends StatefulWidget {
 }
 
 class _web_viewpageState extends State<web_viewpage> {
-
-
   InAppWebViewController? inAppWebViewController;
   late PullToRefreshController pullToRefreshController;
 
   double progress = 0;
   var urlController = TextEditingController();
-  var SelectedOption = "Option 1";
-  List bookMark =[];
-  List urlBookmark1 =[];
-  String urlBookmark = "";
+
+
+
 
   TextEditingController searchController = TextEditingController();
-
 
   @override
   void initState() {
@@ -34,8 +30,7 @@ class _web_viewpageState extends State<web_viewpage> {
         ),
         onRefresh: () async {
           await inAppWebViewController?.reload();
-        }
-    );
+        });
   }
 
   late var url;
@@ -46,6 +41,7 @@ class _web_viewpageState extends State<web_viewpage> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -53,200 +49,131 @@ class _web_viewpageState extends State<web_viewpage> {
           "My Browser",
           style: TextStyle(
             color: Colors.black,
-
           ),
         ),
         actions: [
           PopupMenuButton(
-              icon: Icon(Icons.more_vert,
-                  color: Colors.black),
-              itemBuilder: (context)=>[
-                PopupMenuItem(
-                  value: "Option1",
-                  child: Row(
-                    children: const [
-                      Icon(Icons.bookmark,
-                          color: Colors.black),
-                      SizedBox(
-                        width: 10,
+              initialValue: initialpopmenuval,
+              onSelected: (val) {
+                setState(() {
+                  initialpopmenuval = val;
+                });
+              },
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                      child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          CupertinoIcons.bookmark,
+                        ),
                       ),
                       Text("All BookMark"),
                     ],
-                  ),
-                ),
-                PopupMenuItem(
-                  value: "Option2",
-                  child: Row(
-                    children: const [
-                      Icon(Icons.screen_search_desktop_outlined,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("Search Engine"),
-                    ],
-                  ),
-                ),
-              ],
-              onSelected: (selectedOption){
-                setState(() {
-                  SelectedOption = selectedOption;
-                });
-                if (selectedOption == "Option 1") {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context){
-                      return Container(
-                        height: 600,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 300,
-                                      decoration: const BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            icon: const Icon(
-                                                Icons.close
+                  )),
+                  PopupMenuItem(
+                      child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (context, setState) {
+                                  return AlertDialog(
+                                    actions: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          children: [
+                                            Text("Search engine"),
+                                            SizedBox(
+                                              height: 10,
                                             ),
-                                          ),
-                                          Text(
-                                            "Dismiss",
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                            ),
-                            Expanded(
-                              flex: 10,
-                              child: Container(
-                                child: ListView.builder(
-                                  itemCount: bookMark.length,
-                                  itemBuilder: (context,i) => ListTile(
-                                    title: Text("${urlBookmark1[i]}"),
-                                    trailing: IconButton(onPressed: (){
-                                      setState(() {
-                                        bookMark.remove(urlBookmark1[i]);
-                                        Navigator.of(context).pop();
-                                      });
-                                    },
-                                      icon: Icon(Icons.delete),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                }else if (selectedOption == "Option 2") {
-                  setState(() {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text("Search Engine"),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            RadioListTile(
-                                title: Text("Google"),
-                                value: "https://www.google.com/",
-                                groupValue: initialUrl ,
-                                onChanged: (val) {
-                                  setState(() {
-                                    urlController.clear();
-                                    initialUrl = val!;
-                                  });
-                                  inAppWebViewController!.loadUrl(
-                                      urlRequest: URLRequest(
-                                        url: Uri.parse(initialUrl),
+                                            RadioListTile(title: Text("Google"),
+                                                value:
+                                                    "https://www.google.com/",
+                                                groupValue: initialUrl,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    urlController.clear();
+                                                    initialUrl = val!;
+                                                  });
+                                                  inAppWebViewController!
+                                                      .loadUrl(
+                                                          urlRequest:
+                                                              URLRequest(
+                                                    url: Uri.parse(initialUrl),
+                                                  ));
+                                                }),
+                                            RadioListTile(title: Text("Yahoo"),
+                                                value:
+                                                "https://www.yahoo.com/?guccounter=1",
+                                                groupValue: initialUrl,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    urlController.clear();
+                                                    initialUrl = val!;
+                                                  });
+                                                  inAppWebViewController!
+                                                      .loadUrl(
+                                                      urlRequest:
+                                                      URLRequest(
+                                                        url: Uri.parse(initialUrl),
+                                                      ));
+                                                }),
+                                            RadioListTile(title: Text("Bing"),
+                                                value:
+                                                "https://www.bing.com/",
+                                                groupValue: initialUrl,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    urlController.clear();
+                                                    initialUrl = val!;
+                                                  });
+                                                  inAppWebViewController!
+                                                      .loadUrl(
+                                                      urlRequest:
+                                                      URLRequest(
+                                                        url: Uri.parse(initialUrl),
+                                                      ));
+                                                }),
+                                            RadioListTile(title: Text("Duck Duck Go"),
+                                                value:
+                                                "https://duckduckgo.com/",
+                                                groupValue: initialUrl,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    urlController.clear();
+                                                    initialUrl = val!;
+                                                  });
+                                                  inAppWebViewController!
+                                                      .loadUrl(
+                                                      urlRequest:
+                                                      URLRequest(
+                                                        url: Uri.parse(initialUrl),
+                                                      ));
+                                                }),
+                                          ],
+                                        ),
                                       )
+                                    ],
                                   );
-                                  Navigator.of(context).pop();
-                                }
-                            ),
-                            RadioListTile(
-                              title: Text("Yahoo"),
-                              value: "https://www.yahoo.com/?guccounter=1",
-                              groupValue: initialUrl,
-                              onChanged: (val){
-                                setState(() {
-                                  urlController.clear();
-                                  initialUrl = val!;
                                 });
-                                inAppWebViewController!.loadUrl(
-                                  urlRequest: URLRequest(
-                                    url: Uri.parse(initialUrl),
-                                  ),
-                                );
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            RadioListTile(
-                              title: Text("Bing"),
-                              value: "https://www.bing.com/",
-                              groupValue: initialUrl,
-                              onChanged: (val){
-                                setState(() {
-                                  urlController.clear();
-                                  initialUrl = val!;
-                                });
-                                inAppWebViewController!.loadUrl(
-                                  urlRequest: URLRequest(
-                                    url: Uri.parse(initialUrl),
-                                  ),
-                                );
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            RadioListTile(
-                              title: Text("Duck Duck Go"),
-                              value: "https://duckduckgo.com/",
-                              groupValue: initialUrl,
-                              onChanged: (val){
-                                setState(() {
-                                  urlController.clear();
-                                  initialUrl = val!;
-                                });
-                                inAppWebViewController!.loadUrl(
-                                  urlRequest: URLRequest(
-                                    url: Uri.parse(initialUrl),
-                                  ),
-                                );
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
+                              });
+                        },
+                        icon: Icon(
+                          CupertinoIcons.search,
                         ),
                       ),
-                    );
-                  }
-                  );
-                }
-              }
-          ),
+                      Text("Search Engine")
+                    ],
+                  ))
+                ];
+              })
         ],
       ),
       body: Column(
@@ -255,7 +182,7 @@ class _web_viewpageState extends State<web_viewpage> {
             flex: 20,
             child: InAppWebView(
               pullToRefreshController: pullToRefreshController,
-              onLoadStart: (controller,Uri) {
+              onLoadStart: (controller, Uri) {
                 setState(() {
                   inAppWebViewController = controller;
                   var v = url.toString();
@@ -264,10 +191,11 @@ class _web_viewpageState extends State<web_viewpage> {
                   });
                 });
               },
-              onLoadStop: (controller,Uri) async{
+              onLoadStop: (controller, Uri) async {
                 await pullToRefreshController.endRefreshing();
               },
-              onWebViewCreated: (controller) => inAppWebViewController = controller,
+              onWebViewCreated: (controller) =>
+                  inAppWebViewController = controller,
               initialUrlRequest: URLRequest(url: Uri.parse(initialUrl)),
             ),
           ),
@@ -277,12 +205,13 @@ class _web_viewpageState extends State<web_viewpage> {
               padding: const EdgeInsets.all(16),
               child: TextField(
                 controller: urlController,
-                onSubmitted: (val){
+                onSubmitted: (val) {
                   url = Uri.parse(val);
                   if (url.scheme.isEmpty) {
                     url = Uri.parse("${initialUrl}search?q = $val");
                   }
-                  inAppWebViewController!.loadUrl(urlRequest: URLRequest(url: url),
+                  inAppWebViewController!.loadUrl(
+                    urlRequest: URLRequest(url: url),
                   );
                 },
                 decoration: const InputDecoration(
@@ -292,16 +221,10 @@ class _web_viewpageState extends State<web_viewpage> {
                     Icons.search,
                     color: Colors.black,
                   ),
-
-
-
                 ),
-
-
               ),
             ),
           ),
-
           Expanded(
             flex: 2,
             child: Row(
@@ -309,38 +232,35 @@ class _web_viewpageState extends State<web_viewpage> {
               children: [
                 IconButton(
                   icon: Icon(Icons.home),
-                  onPressed: ()async{
+                  onPressed: () async {
                     await inAppWebViewController!.loadUrl(
-                        urlRequest: URLRequest(
-                            url: Uri.parse(initialUrl)));
+                        urlRequest: URLRequest(url: Uri.parse(initialUrl)));
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.bookmark_add_outlined),
-                  onPressed: ()async{
+                  onPressed: () async {
                     await inAppWebViewController?.getUrl();
-
-
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.arrow_back_ios),
-                  onPressed: ()async{
-                    if(await inAppWebViewController!.canGoBack()) {
+                  onPressed: () async {
+                    if (await inAppWebViewController!.canGoBack()) {
                       await inAppWebViewController!.goBack();
                     }
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.refresh),
-                  onPressed: ()async{
+                  onPressed: () async {
                     await inAppWebViewController!.reload();
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.arrow_forward_ios),
-                  onPressed: ()async{
-                    if(await inAppWebViewController!.canGoForward()) {
+                  onPressed: () async {
+                    if (await inAppWebViewController!.canGoForward()) {
                       await inAppWebViewController!.goForward();
                     }
                   },
@@ -353,6 +273,3 @@ class _web_viewpageState extends State<web_viewpage> {
     );
   }
 }
-
-
-
