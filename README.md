@@ -8,7 +8,7 @@ A new Flutter project.
 
 <img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/6af82a6c-4913-494e-85f4-c62b101d9500" width="220px">
 <img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/4b8d0c3b-6fc4-4907-8be5-e24a97d4566d" width="220px">
-<img src="" width="220px">
+<img src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/1e7fc828-2024-49d4-b9ad-ca962dd8d5b8" width="220px">
 
 ## Getting Started
 
