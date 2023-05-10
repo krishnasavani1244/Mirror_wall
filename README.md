@@ -16,7 +16,7 @@ A new Flutter project.
 
 <img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/f17f1210-c784-4498-8e38-0e26accd6740" width="220px">
 <img align="left" src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/7470602b-fd4b-4447-824a-6226b9538e50" width="220px">
-<img src="" width="220px">
+<img src="https://github.com/krishnasavani1244/mirror_wall/assets/131374449/690ac916-8f92-42bd-88b3-70bf429a1dc3" width="220px">
 
 ## Getting Started
 
